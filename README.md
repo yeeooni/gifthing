@@ -12,16 +12,24 @@
 _아이러니하게도 기프티콘 또한 `gift + icon` 의 합성어죠!?_
 
 #### 🛠기술 스택️
+##### 백엔드
 - springboot 3.4.0 
   - 최신 기술로 무장한 당신의 기프티콘 지킴이!
 - JDK 23
   - 우린 현대적인 사람들입니다. 오래된 기술은 _Pass!_
-- node v18.14.2
-- vue-cli 5.0.8
+- node.js v18.14.2
+
+##### 프론트엔드
+- sass 1.82.0
+- vue.js vue-cli 5.0.8
   - 깔끔하고 반응형 UI로 사용자 경험을 극대화합니다.
+
+##### 빌드 도구
 - gradle
   - 이렇게 간편한 빌드 도구는 없죠?
   - maven 은 이제 그만!
+
+##### 그 외
 - database ???
   - "어떤 DB를 선택해야 기프티콘을 가장 잘 지킬 수 있을까요?"
   - Coming Soon! 🎉
@@ -67,4 +75,14 @@ npm install
 3. 로컬 서버 실행
 ```shell
 npm run serve
+```
+
+#### ✨sass 버전 확인
+```
+npm show sass version
+```
+
+#### ✨css 변환・
+```
+sass style.css style.scss
 ```
