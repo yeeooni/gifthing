@@ -4,8 +4,8 @@
     <div class="todo-item" v-for="(todo, index) in todos" :key="todo.id">
       <input type="checkbox" v-model="todo.completed"/>
       <div class="todo-item-left">
-        <div v-if="!todo.editing" class="todo-item-label" @dblclick="editTodo(todo)">{{todo.title}}</div>
-        <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneTodo(todo)" @keyup.enter="doneTodo(todo)"/>
+        <div v-if="!todo.editing" class="todo-item-label" @dblclick="editTodo(todo)" :class="{ completed: todo.completed }">{{todo.title}}</div>
+        <input v-else class="todo-item-edit" type="text" v-model="todo.title" @blur="doneTodo(todo)" @keyup.enter="doneTodo(todo)" @keyup.esc="cancelTodo(todo)"/>
       </div>
       <div class="remove-item" @click="removeTodo(index)">
         &times;
@@ -19,8 +19,9 @@ export default {
   name: 'todo-list',
   data() {
     return {
-      newTodo: '',
-      forIdTodo: 3,
+      newTodo: '',  //타이틀
+      forIdTodo: 3, //다음 생성될 아이디
+      beforeEditTodo: '', //기존 저장된 타이틀
       todos: [
         {
           id: 1,
@@ -48,18 +49,26 @@ export default {
             }
         );
 
-        //초기화
+        //아이템 초기화
         this.forIdTodo++;
         this.newTodo = '';
       }
     },
-    editTodo(todo){
+    editTodo(todo){ //수정
+      this.beforeEditTodo = todo.title;
       todo.editing = true;
     },
-    doneTodo(todo){
+    doneTodo(todo){ //저장
+      if(todo.title.trim() == ''){
+        todo.title = this.beforeEditTodo;
+      }
       todo.editing = false;
     },
-    removeTodo(index) {
+    cancelTodo(todo){ //취소
+      todo.title = this.beforeEditTodo;
+      todo.editing = false;
+    },
+    removeTodo(index) { //삭제
       this.todos.splice(index, 1)
     }
   }
@@ -114,4 +123,10 @@ export default {
       outline: none;
     }
   }
+
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+
 </style>
